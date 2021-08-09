@@ -9,11 +9,11 @@ import {
 const AnimatedPressable = Animated.createAnimatedComponent(RNPressable);
 
 interface Props extends PressableProps {
-  onPress?: () => {};
   children?: React.ReactNode;
   scaleValue?: number;
   friction?: number;
   tension?: number;
+  style?: ViewStyle | ViewStyle[];
 }
 
 const Pressable = ({
@@ -22,6 +22,7 @@ const Pressable = ({
   scaleValue,
   friction,
   tension,
+  style,
   ...restProps
 }: Props) => {
   const [scale] = useState(new Animated.Value(1));
@@ -56,7 +57,7 @@ const Pressable = ({
   return (
     <AnimatedPressable
       {...restProps}
-      style={animatedStyles}
+      style={[animatedStyles, style]}
       onPress={onPress}
       onPressIn={() => shrinkView()}
       onPressOut={() => scaleView()}
